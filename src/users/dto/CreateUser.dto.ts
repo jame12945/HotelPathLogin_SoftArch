@@ -12,4 +12,7 @@ export class CreateUserDto{
     name:string;
     @IsNotEmpty()
     contact:string;
+    @IsNotEmpty()
+    @MinLength(9)
+    phone:string;
 }

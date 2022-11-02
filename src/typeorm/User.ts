@@ -30,6 +30,12 @@ export class User{
         default:'',
     })
     contact:string;
+    @Column({
+       
+        nullable: false,
+        default:'',
+    })
+    phone:string;
     
    
 }
