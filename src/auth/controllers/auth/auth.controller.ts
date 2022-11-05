@@ -1,10 +1,8 @@
-import { Controller,Headers, Post ,Request,UseGuards} from '@nestjs/common';
+import { Controller,Headers, Patch, Post ,Request,UseGuards} from '@nestjs/common';
 import { Body } from '@nestjs/common/decorators/http/route-params.decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from '../../services/auth/auth.service';
 import {LocalStraetgy} from '../../utils/LocalStrategy';
-
-
 
 @Controller('auth')
 export class AuthController {
@@ -37,13 +35,18 @@ export class AuthController {
         const authorizedData = this.localStraetgy.decodeJWTToken({ token: header });
         console.log('authorizedData: ',authorizedData);
         
-        // return this.localStraetgy.mockRoomBooking({ payload: {
-        //     ...authorizedData,
-        //     ...body,
-        // }});
 
         return this.localStraetgy.mockRoomBookingVersion2(authorizedData, body);
     }
+    /*
+    @Patch('changePassword')
+    @UseGuards(AuthGuard)
+    async changePassword(){
+
+    }
+    */
+
+   
 
     // ORIGINAL
     // async login(@Request() req){}

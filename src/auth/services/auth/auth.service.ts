@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { comparePasswords } from 'src/utils/bcrypt';
 import { UsersService } from '../../../users/services/users/users.service';
 
 @Injectable()
@@ -9,14 +10,20 @@ export class AuthService {
     async validateUser(username: string, password: string){
         console.log('Inside validateUser');
         const userDB = await this.userService.findUserByUsername(username);
-        if(userDB && userDB.password === password){
+        if(userDB){
+            const matched = comparePasswords(password, userDB.password);
+            if(matched){
             console.log('User validation Success!');
             return userDB;
-
+            }
+             else{
+              console.log('Password do not match!');
+              return null;
         }
+    }
+        
         console.log('User validation Failed!');
-            return null;
-    
+        return null;
     
     }
 

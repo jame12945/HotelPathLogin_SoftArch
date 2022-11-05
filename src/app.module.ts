@@ -5,6 +5,7 @@ import { User } from './typeorm';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 
+
 @Module({
   imports: [CustomersModule, UsersModule,TypeOrmModule.forRoot({
     type: 'mysql',
